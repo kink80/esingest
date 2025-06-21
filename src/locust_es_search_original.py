@@ -36,7 +36,7 @@ class ElasticsearchUser(HttpUser):
 
         # Define the Elasticsearch search body
         # We'll search in 'review_body' and 'review_title' fields.
-        bool_query = {
+        bool_query_original = {
             "bool": {
                 "should": [
                     {"match_phrase": {"content": {"query": query_term, "boost": 30}}},
@@ -48,8 +48,8 @@ class ElasticsearchUser(HttpUser):
         }
 
         search_body = {
-            "query": bool_query,
-            "size": 10 # Request 10 hits per search
+            "query": bool_query_original,
+            "size": 50 # Request 10 hits per search
         }
 
         # Perform the POST request to the _search endpoint
